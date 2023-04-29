@@ -7,6 +7,9 @@ import { RegisterUserComponent } from './register-user/register-user.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { LoginUserComponent } from './login-user/login-user.component';
+import { AddTaskComponent } from './add-task/add-task.component';
+import { TaskDetailsComponent } from './task-details/task-details.component';
+import { TasksListComponent } from './tasks-list/tasks-list.component';
 
 
 @NgModule({
@@ -14,6 +17,9 @@ import { LoginUserComponent } from './login-user/login-user.component';
     AppComponent,
     RegisterUserComponent,
     LoginUserComponent,
+    AddTaskComponent,
+    TaskDetailsComponent,
+    TasksListComponent,
 
   ],
   imports: [
