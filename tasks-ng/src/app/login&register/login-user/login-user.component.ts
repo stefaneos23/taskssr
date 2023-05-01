@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-import {User} from "../user";
-import {LogiuserService} from "../logiuser.service";
-import {error} from "@angular/compiler-cli/src/transformers/util";
+import {Component} from '@angular/core';
+import {User} from "../../user";
+import {LogiuserService} from "../../logiuser.service";
 
 @Component({
   selector: 'app-login-user',

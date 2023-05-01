@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +21,9 @@ public class TaskController {
     private final TaskRepository taskRepository;
     @Autowired
     public TaskController(TaskRepository taskRepository, TaskService taskService ) {
-        this.taskService = taskService;
         this.taskRepository = taskRepository;
+        this.taskService = taskService;
+
     }
     @GetMapping("/tasks")
     public ResponseEntity<List<Task>> getAllTasks(@RequestParam(required = false) String title) {

@@ -1,0 +1,56 @@
+<div>
+    <div class="submit-form">
+        <div *ngIf="submited">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        id="title"
+                        [(ngModel)]="task.title"
+                        name="title"
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        id="subject"
+                        [(ngModel)]="task.subject"
+                        name="subject"
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="dueDate">Due Date</label>
+                <input
+                        class="form-control"
+                        id="dueDate"
+                        required
+                        [(ngModel)]="task.dueDate"
+                        name="dueDate"
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        id="status"
+                        [(ngModel)]="task.status"
+                        name="status"
+                />
+            </div>
+
+            <button (click)="saveTask()" class="btn btn-success">Add Task</button>
+        </div>
+
+        <div *ngIf="submited">
+            <h4>Task successfully added!</h4>
+            <button class="btn btn-success" (click)="newTask()">Add</button>
+        </div>
+    </div>
+</div>
