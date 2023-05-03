@@ -1,10 +1,9 @@
-package com.example.tasksservices.service;
+package com.example.tasksservices.security;
 
 
 import com.example.tasksservices.model.Role;
 import com.example.tasksservices.model.UserEntity;
 import com.example.tasksservices.repo.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -19,9 +18,11 @@ import java.util.stream.Collectors;
 @Service
 public class CustomUserDetailsService  implements UserDetailsService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
+//    public CustomUserDetailsService() {
+//    }
+
     public CustomUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

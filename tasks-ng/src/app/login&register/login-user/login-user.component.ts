@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {User} from "../../user";
-import {LogiuserService} from "../../logiuser.service";
+import {LogiuserService} from "../../services/logiuser.service";
 
 @Component({
   selector: 'app-login-user',

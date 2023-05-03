@@ -20,4 +20,8 @@ public class Task {
     private LocalDate dueDate;
     private Status status;
 
+    public Task(String subject, LocalDate dueDate) {
+        this.subject = subject;
+        this.dueDate = dueDate;
+    }
 }

@@ -5,27 +5,27 @@ import com.example.tasksservices.dto.TaskDto;
 import com.example.tasksservices.model.Task;
 import com.example.tasksservices.repo.TaskRepository;
 import com.example.tasksservices.service.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/tasks")
+@RequestMapping("/tasks")
 public class TaskController {
 
     private final TaskService taskService;
 
     private final TaskRepository taskRepository;
-    @Autowired
+
     public TaskController(TaskRepository taskRepository, TaskService taskService ) {
         this.taskRepository = taskRepository;
         this.taskService = taskService;
 
     }
-    @GetMapping("/tasks")
+    @GetMapping("/all-tasks")
     public ResponseEntity<List<Task>> getAllTasks(@RequestParam(required = false) String title) {
         try {
 
@@ -47,7 +47,7 @@ public class TaskController {
         }
     }
 
-    @GetMapping("/{taskId")
+    @GetMapping("/{taskId}")
     public ResponseEntity<Task> getTask(@PathVariable Long taskId){
         Task task = taskService.getTask(taskId).get();
         return ResponseEntity.ok().body(task);
@@ -75,7 +75,7 @@ public class TaskController {
         }
     }
 
-    @DeleteMapping("/tasks")
+    @DeleteMapping("/delete-tasks")
     public ResponseEntity<HttpStatus> deleteTasks() {
         try{
             taskRepository.deleteAll();
@@ -85,7 +85,7 @@ public class TaskController {
         }
     }
 
-    @DeleteMapping("/tasks/{id}")
+    @DeleteMapping("/delete-tasks/{id}")
     public ResponseEntity<HttpStatus>deleteTask(@PathVariable("id") long id) {
         try{
             taskRepository.deleteById(id);
