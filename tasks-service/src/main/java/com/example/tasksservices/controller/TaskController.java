@@ -4,12 +4,11 @@ import com.example.tasksservices.dto.MessageResponse;
 import com.example.tasksservices.dto.TaskDto;
 import com.example.tasksservices.model.Task;
 import com.example.tasksservices.repo.TaskRepository;
-import com.example.tasksservices.service.TaskService;
+import com.example.tasksservices.service.task.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,27 +24,11 @@ public class TaskController {
         this.taskService = taskService;
 
     }
-    @GetMapping("/all-tasks")
-    public ResponseEntity<List<Task>> getAllTasks(@RequestParam(required = false) String title) {
-        try {
-
-            List<Task> tasks = new ArrayList<Task>();
-
-            if (title == null)
-                taskRepository.findAll().forEach(tasks::add);
-            else
-                taskService.findByTitleContaining(title).forEach(tasks::add);
-
-            if (tasks.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-
-            return new ResponseEntity<>(tasks, HttpStatus.OK);
-
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    @GetMapping()
+    public ResponseEntity<List<Task>> getAllTasks() {
+        List<Task> tasks = taskService.getAll();
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+}
 
     @GetMapping("/{taskId}")
     public ResponseEntity<Task> getTask(@PathVariable Long taskId){
@@ -54,13 +37,13 @@ public class TaskController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addTask(@RequestBody TaskDto taskDTO) {
+    public ResponseEntity<?> addTask(@RequestBody TaskDto taskDTO) {
         try{
             taskService.createTask(taskDTO);
-            return ResponseEntity.ok("Task successfully added!");
+            return ResponseEntity.ok().body(new MessageResponse("Task successfully added!"));
         }catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.ok().body("Failed to add the task!");
+            return ResponseEntity.ok().body(new MessageResponse("Failed to add the task!"));
         }
     }
 

@@ -1,10 +1,10 @@
 import {Status} from "./Status";
 
-export class Task {
+export interface Task {
 
   id?: number;
-  title?:string;
-  subject?: string;
-  dueDate?: string;
-  status?: Status
+  subject: string;
+  dueDate: Date;
+  status: Status;
+  assignedTo:any;
 }

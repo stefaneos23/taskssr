@@ -16,9 +16,12 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private  String subject;
+    private String subject;
     private LocalDate dueDate;
     private Status status;
+    @ManyToOne(optional = false)
+    //@JoinColumn(name = "assigned_to_username", referencedColumnName = "username")
+    private UserEntity assignedTo;
 
     public Task(String subject, LocalDate dueDate) {
         this.subject = subject;

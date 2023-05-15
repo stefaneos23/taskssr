@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Task} from "../../interfaces/task.model";
-import {Status} from "../../interfaces/Status";
 import {TaskService} from "../../services/task.service";
+import {Status} from "../../interfaces/Status";
 
 @Component({
   selector: 'app-add-task',
@@ -10,14 +9,14 @@ import {TaskService} from "../../services/task.service";
 })
 export class AddTaskComponent implements OnInit {
 
-  task: Task = {
-    title: '',
+  task: { subject: string; dueDate: undefined; status: Status , assignedTo: string} = {
     subject: '',
-    dueDate: '',
-    status: Status.NEW
+    dueDate: undefined,
+    status: Status.NEW,
+    assignedTo: ''
   };
 
-  submited = false;
+  submited = true;
 
   constructor(private taskService: TaskService) {
   }
@@ -27,27 +26,17 @@ export class AddTaskComponent implements OnInit {
 
   saveTask(): void {
     const data = {
-      title: this.task.title,
-      description: this.task.subject
+      subject: this.task.subject,
+      dueDate: this.task.dueDate,
+      status: this.task.status,
+      assignedTo: this.task.assignedTo
     };
 
     this.taskService.create(data)
         .subscribe({
           next: (res) => {
             console.log(res);
-            this.submited = true;
-          },
-          error: (e) => console.error(e)
+          }
         });
-  }
-
-  newTask(): void {
-this.submited = false;
-this.task = {
-  title: '',
-  subject: '',
-  dueDate: '',
-  status: Status.NEW
-    }
   }
 }

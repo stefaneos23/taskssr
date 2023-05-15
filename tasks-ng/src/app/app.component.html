@@ -1,2 +1,26 @@
-<router-outlet></router-outlet>
+<div>
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a href="#" class="navbar-brand">Task Manager</a>
+    <div class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a routerLink="my-tasks" class="nav-link">My Tasks</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="all-tasks" class="nav-link">All Tasks</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="add-task" class="nav-link">Add Task</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="logout" class="nav-link">Logout</a>
+      </li>
+    </div>
+  </nav>
+
+  <div class="constainer mt-3">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+
 

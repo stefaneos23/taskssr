@@ -10,12 +10,13 @@ public class TaskDto {
     private Long id;
     private String subject;
     private LocalDate dueDate;
-    private String assignedTo;
     private Status status;
+    private String assignedTo;
 
-    public TaskDto(String subject, LocalDate dueDate, String assignedTo) {
+    public TaskDto(String subject, LocalDate dueDate, Status status, String assignedTo) {
         this.subject = subject;
         this.dueDate = dueDate;
+        this.status = status;
         this.assignedTo = assignedTo;
     }
 }

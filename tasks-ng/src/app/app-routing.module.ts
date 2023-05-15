@@ -4,17 +4,14 @@ import {RouterModule, Routes} from "@angular/router";
 import {RegisterUserComponent} from "./login&register/register-user/register-user.component";
 import {LoginUserComponent} from "./login&register/login-user/login-user.component";
 import {HttpClientModule} from "@angular/common/http";
-import {MyTasksComponent} from "./tasks/my-tasks/my-tasks.component";
-import {TaskDetailsComponent} from "./tasks/task-details/task-details.component";
-import {AddTaskComponent} from "./tasks/add-task/add-task.component";
+import {LogoutComponent} from "./login&register/logout/logout.component";
+
 
 const routes: Routes = [
-  { path: 'app-register-user', component: RegisterUserComponent},
-  { path: 'app-login-user', component: LoginUserComponent},
-  {path: '', redirectTo: '/app-login-user', pathMatch: 'full'},
-  {path: 'tasks', component: MyTasksComponent},
-  {path: 'tasks/:id', component: TaskDetailsComponent},
-  {path: 'add', component: AddTaskComponent}
+  {path: 'register', component: RegisterUserComponent},
+  {path: 'login', component: LoginUserComponent},
+  {path: 'logout', component: LogoutComponent},
+  {path: '', loadChildren: () => import('./tasks/tasks.module').then(m => m.TasksModule)}
 ];
 
 @NgModule({

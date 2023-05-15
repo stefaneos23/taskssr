@@ -9,18 +9,18 @@ import {TaskService} from "../../services/task.service";
   styleUrls: ['./all-tasks.component.css']
 })
 export class AllTasksComponent implements OnInit{
-    tasks: Observable<Task[]> = of([])
 
+    tasks: Observable<Task[]> = of([])
   constructor(private taskService: TaskService) {
   }
 
   ngOnInit(): void{
-      this.tasks = this.getAll();
+      this.tasks = this.getAllTasks();
   }
 
-  getAll(): Observable<Task[]> {
+  getAllTasks(): Observable<Task[]> {
     return this.taskService.getAll().pipe(
-        map(tasks => tasks.sort((a: any, b: any) => new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime()))
+        map(tasks => tasks.sort((a, b) => new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime()))
     );
   }
 }

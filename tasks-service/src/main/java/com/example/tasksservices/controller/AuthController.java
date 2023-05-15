@@ -2,6 +2,7 @@ package com.example.tasksservices.controller;
 
 import com.example.tasksservices.dto.AuthResponseDto;
 import com.example.tasksservices.dto.LoginDto;
+import com.example.tasksservices.dto.MessageResponse;
 import com.example.tasksservices.dto.RegisterDto;
 import com.example.tasksservices.model.Role;
 import com.example.tasksservices.model.UserEntity;
@@ -43,7 +44,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterDto registerDto){
+    public ResponseEntity<?> register(@RequestBody RegisterDto registerDto){
         if (userRepository.existsByUsername(registerDto.getUsername())){
             return new ResponseEntity<>("Username is taken!", HttpStatus.BAD_REQUEST);
         }
@@ -56,8 +57,7 @@ public class AuthController {
         user.setRoles(Collections.singletonList(roles));
 
         userRepository.save(user);
-
-         return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
+        return ResponseEntity.ok().body(new MessageResponse("merge"));
     }
 
     @PostMapping("/login")

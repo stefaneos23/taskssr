@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Task} from "../../interfaces/task.model";
-import {TaskService} from "../../services/task.service";
+import {map, Observable, of} from "rxjs";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-my-tasks',
@@ -9,61 +10,23 @@ import {TaskService} from "../../services/task.service";
 })
 export class MyTasksComponent implements OnInit{
 
-  tasks?: Task[]
-  currentTask: Task = {};
-  currentIndex = -1;
-  title = '';
-  description= '';
-
-  constructor(private taskService: TaskService) {
+  tasks$: Observable<Task[]> = of([])
+  private username?: string
+  constructor(private userService : UserService) {
   }
 
   ngOnInit(): void{
-    this.retriveTasks();
+    this.retriveUsername();
+    this.tasks$ = this.getTasks();
   }
 
-  retriveTasks(): void {
-    this.taskService.getAll()
-      .subscribe({
-        next: (data) =>{
-          this.tasks = data;
-          console.log(data)
-        },
-        error: (e) => console.error(e)
-      });
+  retriveUsername(): void {
+    const username = this.userService.getUsername();
   }
 
-  refreshList(): void {
-    this.retriveTasks();
-    this.currentTask = {};
-    this.currentIndex = -1;
-  }
-
-  setActiveTask(task: Task, index: number): void {
-    this.currentTask = task;
-    this.currentIndex = index;
-  }
-
-  removeAllTasks(): void {
-    this.taskService.deleteAll()
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.refreshList();
-        },
-        error: (e) => console.error(e)
-      });
-  }
-
-  searchTitle(): void {
-    this.currentTask = {};
-    this.currentIndex = -1;
-    this.taskService.findByTitle(this.title)
-      .subscribe({
-        next: (data) => {
-          console.log(data);
-        },
-        error: (e) => console.error(e)
-      });
+  getTasks(): Observable<Task[]> {
+    return this.userService.getTasks(this.username).pipe(
+      map(tasks => tasks.sort((a, b) => new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime()))
+    );
   }
 }

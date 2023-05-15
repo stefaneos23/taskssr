@@ -1,22 +1,27 @@
-<div *ngIf="(tasks | async)?.length; else noTask">
+<div *ngIf="tasks; else noTask">
+  <div class="input-group-append">
+    <br/>
+  </div>
     <table class="table">
         <thead>
         <tr>
             <th scope="col">Subject</th>
             <th scope="col">Due Date</th>
             <th scope="col">Status</th>
+            <th scope="col">Assigned To</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let task of tasks | async">
-            <td><a [routerLink]="['/tasks']">{{task.subject}}</a></td>
+        <tr *ngFor="let task of tasks| async">
+            <td><a [routerLink]="['/tasks', task.id]">{{task.subject}}</a></td>
             <td>{{task.dueDate | date: 'MM/dd/YYYY'}}</td>
             <td>{{task.status}}</td>
+            <td>{{task.assignedTo.username}}</td>
         </tr>
         </tbody>
     </table>
 </div>
 
 <ng-template #noTask>
-    <p>There are no atsks</p>
+    <p>There are no tasks</p>
 </ng-template>

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../../user";
 import {RegisterService} from "../../services/register.service";
+import {RegisterReq} from "../../interfaces/RegisterReq";
 
 @Component({
   selector: 'app-register-user',
@@ -9,18 +9,21 @@ import {RegisterService} from "../../services/register.service";
 })
 export class RegisterUserComponent implements OnInit {
 
-  user: User = new User()
-
-  constructor(private registerService: RegisterService) {
+  registerReq:RegisterReq={
+    username:"",
+    password:""
   }
+
+  constructor(private registerService: RegisterService) {}
 
   ngOnInit(): void {
   }
 
   userRegister() {
-    console.log(this.user);
-    this.registerService.registerUser(this.user).subscribe(data => {
-      alert("Successfully registered")
-    },error => alert("Sorry user is not registered"));
+    this.registerService.registerUser(this.registerReq).subscribe({
+      next:(data) => {
+        console.log(data)
+      }
+    });
   }
 }
