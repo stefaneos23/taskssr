@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Task} from "../../interfaces/task.model";
+import {Task} from "../../interfaces/taskl";
 import {map, Observable, of} from "rxjs";
 import {UserService} from "../../services/user.service";
 
@@ -11,17 +11,20 @@ import {UserService} from "../../services/user.service";
 export class MyTasksComponent implements OnInit{
 
   tasks$: Observable<Task[]> = of([])
-  private username?: string
+  private username?: string | null;
   constructor(private userService : UserService) {
   }
 
   ngOnInit(): void{
     this.retriveUsername();
-    this.tasks$ = this.getTasks();
+    //this.tasks$ = this.getTasks();
   }
 
   retriveUsername(): void {
-    const username = this.userService.getUsername();
+    this.username = this.userService.getUsername();
+    if (this.username){
+      this.tasks$ = this.getTasks();
+    }
   }
 
   getTasks(): Observable<Task[]> {

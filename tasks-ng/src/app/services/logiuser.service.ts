@@ -10,7 +10,7 @@ export class LogiuserService {
   private baseUrl = "http://localhost:8080/api/auth"
   constructor(private httpClient: HttpClient) { }
 
-  loginUser(user: User): Observable<object>{
+  loginUser(user: User): Observable<any>{
     console.log(user);
     return this.httpClient.post(`${this.baseUrl}/login`, user);
   }

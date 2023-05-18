@@ -1,4 +1,4 @@
-package com.example.tasksservices.dto;
+package com.example.tasksservices.dto.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class RegisterDto {
+public class UserDto {
     private String username;
-    private String password;
 }

@@ -3,7 +3,7 @@ import {AuthenticationService} from "./authentication.service";
 import jwtDecode from "jwt-decode";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Task} from "../interfaces/task.model";
+import {Task} from "../interfaces/taskl";
 import {UserDTO} from "../interfaces/UserDTO";
 
 @Injectable({
@@ -22,12 +22,13 @@ decodedToken?: any;
 
   getUsername(): string | null {
     if (this.decodedToken) {
+
       return this.decodedToken.sub;
       }
     return null;
     }
 
-   getTasks(username: string | undefined): Observable<Task[]> {
+  getTasks(username: string | null | undefined): Observable<Task[]> {
     let httOptions = this.authService.httpOptions;
     return this.http.get<Task[]>(`${this.apiUrl}/tasks/${username}`, httOptions)
    }

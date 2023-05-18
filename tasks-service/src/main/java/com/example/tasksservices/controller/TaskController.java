@@ -1,7 +1,8 @@
 package com.example.tasksservices.controller;
 
-import com.example.tasksservices.dto.MessageResponse;
-import com.example.tasksservices.dto.TaskDto;
+import com.example.tasksservices.dto.requests.SearchReq;
+import com.example.tasksservices.dto.responses.MessageResponse;
+import com.example.tasksservices.dto.requests.TaskDto;
 import com.example.tasksservices.model.Task;
 import com.example.tasksservices.repo.TaskRepository;
 import com.example.tasksservices.service.task.TaskService;
@@ -56,6 +57,12 @@ public class TaskController {
             e.printStackTrace();
             return ResponseEntity.ok().body(new MessageResponse("Failed to edit the task!"));
         }
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<List<Task>> search(@RequestBody SearchReq searchReq) {
+        List<Task> returnedTasks = taskService.search(searchReq);
+        return new ResponseEntity<List<Task>>(returnedTasks, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete-tasks")

@@ -8,20 +8,17 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import java.io.IOException;
 
-
+@Component
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
-    private JWTGenerator tokenGenerator;
+    private final JWTGenerator tokenGenerator;
 
-    private CustomUserDetailsService customUserDetailsService;
-
-    public JWTAuthenticationFilter() {
-    }
+    private final CustomUserDetailsService customUserDetailsService;
 
     public JWTAuthenticationFilter(JWTGenerator tokenGenerator, CustomUserDetailsService customUserDetailsService) {
         this.tokenGenerator = tokenGenerator;
@@ -33,9 +30,10 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         String token = getJWTFromRequest(request);
+        System.out.println(token);
         if(StringUtils.hasText(token) && tokenGenerator.validateToken(token)) {
             String username = tokenGenerator.getUsernameFromJWT(token);
-
+            System.out.println("username" + username);
             UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null,
                     userDetails.getAuthorities());

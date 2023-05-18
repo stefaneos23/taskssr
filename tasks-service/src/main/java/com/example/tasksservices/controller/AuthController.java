@@ -1,9 +1,9 @@
 package com.example.tasksservices.controller;
 
-import com.example.tasksservices.dto.AuthResponseDto;
-import com.example.tasksservices.dto.LoginDto;
-import com.example.tasksservices.dto.MessageResponse;
-import com.example.tasksservices.dto.RegisterDto;
+import com.example.tasksservices.dto.requests.LoginDto;
+import com.example.tasksservices.dto.requests.RegisterDto;
+import com.example.tasksservices.dto.responses.LoginResponseDTO;
+import com.example.tasksservices.dto.responses.MessageResponse;
 import com.example.tasksservices.model.Role;
 import com.example.tasksservices.model.UserEntity;
 import com.example.tasksservices.repo.RoleRepository;
@@ -61,12 +61,18 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDto> login(@RequestBody LoginDto loginDto) {
+    public LoginResponseDTO login(@RequestBody LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(),
                         loginDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String tocken = jwtGenerator.generateToken(authentication);
-        return  new ResponseEntity<>(new AuthResponseDto(tocken), HttpStatus.OK);
+        System.out.println(loginDto.getUsername());
+        //UserEntity user = (UserEntity) authentication.getPrincipal();
+        String token = jwtGenerator.generateToken(authentication);
+        LoginResponseDTO loginResponse = new LoginResponseDTO();
+        loginResponse.setToken(token);
+        //loginResponse.setUserId(user.getId());
+
+        return loginResponse;
     }
 }

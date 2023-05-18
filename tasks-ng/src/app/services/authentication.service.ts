@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
-import {LoginReq} from "../interfaces/LoginReq";
+import {logedUser, LoginReq} from "../interfaces/LoginReq";
 import {Observable} from "rxjs";
 import {RegisterReq} from "../interfaces/RegisterReq";
 
@@ -17,16 +17,17 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) { }
 
-  login(loginReq: LoginReq): Observable<HttpResponse<any>> {
-    return this.http.post(`${this.url}/login`, loginReq, { observe: "response"});
+  login(loginReq: LoginReq):  Observable<logedUser>{
+    return this.http.post<logedUser>(`${this.url}/login`, loginReq);
   }
 
-  isLoggedIn(): boolean {
-    return localStorage.getItem("token") != null;
+  public getIsLoggedIn(): boolean {
+    return (localStorage.getItem("accessToken") != null);
   }
 
   logOut(): void {
-    localStorage.removeItem("token");
+    localStorage.removeItem("accessToken");
+    // localStorage.removeItem("username");
   }
 
   register(registerReq: RegisterReq): Observable<HttpResponse<any>> {
@@ -34,14 +35,14 @@ export class AuthenticationService {
   }
 
   getToken(): string | null {
-    if (this.isLoggedIn()) {
-      return localStorage.getItem("token");
+    if (this.getIsLoggedIn()) {
+      return localStorage.getItem("accessToken");
     }
     return null;
   }
 
   private addAuthorizationHeader(): void {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("accessToken");
     if (token) {
       this._httpOptions.headers = this._httpOptions.headers.set('Authorization', `Bearer ${token}`);
     }
@@ -51,4 +52,11 @@ export class AuthenticationService {
     this.addAuthorizationHeader();
     return this._httpOptions;
   }
+
+  setUsernameAndTokenIntoLocalStorage(username: string, accessToken: string) {
+    // localStorage.setItem("username", username);
+    localStorage.setItem("accessToken", accessToken);
+  }
+
+
 }

@@ -25,10 +25,12 @@ public class UserEntity {
     @OneToMany(cascade = CascadeType.REMOVE)
     @JoinTable(name = "user_task_assigned",
     joinColumns = @JoinColumn(name = "userEntity_id"),
-    inverseJoinColumns = @JoinColumn(name = "task_id"))
-    Set<Task> tasks = new HashSet<>();
+    inverseJoinColumns = @JoinColumn(name = "task_id")
+    )
+    Set<Task> assignedTasks = new HashSet<>();
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "userEntity_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles = new ArrayList<>();
+
 }

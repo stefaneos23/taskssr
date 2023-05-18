@@ -38,5 +38,7 @@ export class AddTaskComponent implements OnInit {
             console.log(res);
           }
         });
+
+    alert("Task added successfully")
   }
 }

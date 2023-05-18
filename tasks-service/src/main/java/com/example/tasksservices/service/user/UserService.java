@@ -1,6 +1,6 @@
 package com.example.tasksservices.service.user;
 
-import com.example.tasksservices.dto.UserDto;
+import com.example.tasksservices.dto.responses.UserDto;
 import com.example.tasksservices.model.UserEntity;
 import java.util.List;
 import java.util.Optional;

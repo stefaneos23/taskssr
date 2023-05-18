@@ -1,3 +1,7 @@
+<div class="col-md-9">
+  <h3 class="d-flex justif-content-center">Filters</h3>
+</div>
+<app-search-task (search)="onSearch($event)"></app-search-task>
 <div *ngIf="tasks; else noTask">
   <div class="input-group-append">
     <br/>
@@ -23,5 +27,7 @@
 </div>
 
 <ng-template #noTask>
-    <p>There are no tasks</p>
+  <div class="d-flex align-items-center justify-content-center" style="height: 90vh;">
+    <h4>There are no tasks.</h4>
+  </div>
 </ng-template>

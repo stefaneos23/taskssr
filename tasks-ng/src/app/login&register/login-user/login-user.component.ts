@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
-import {User} from "../../user";
 import {LogiuserService} from "../../services/logiuser.service";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../services/authentication.service";
+import {LoginReq} from "../../interfaces/LoginReq";
 
 @Component({
   selector: 'app-login-user',
@@ -10,19 +10,19 @@ import {AuthenticationService} from "../../services/authentication.service";
   styleUrls: ['./login-user.component.css']
 })
 export class LoginUserComponent {
-
+  loginReq: LoginReq = {};
   serverMessage: string;
   showServerMessage: boolean
-
-  user: User = new User();
-  constructor(private loginuserService: LogiuserService, private router:Router, private authService: AuthenticationService) {
+  constructor(private loginuserService: LogiuserService, private router:Router, private auhService: AuthenticationService) {
     this.serverMessage = "";
     this.showServerMessage = false;
   }
-
-
   userLogin() {
-    console.log(this.user);
-    this.router.navigate(['my-tasks'])
+    this.auhService.login(this.loginReq).subscribe((res) => {
+      this.auhService.setUsernameAndTokenIntoLocalStorage(res.username, res.token)
+      if (res) {
+        this.router.navigate(['my-tasks'])
+      }
+    })
   }
 }

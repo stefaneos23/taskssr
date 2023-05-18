@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Task} from "../../interfaces/task.model";
+import {Task} from "../../interfaces/taskl";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
 import {Status} from "../../interfaces/Status";
@@ -88,5 +88,6 @@ export class TaskDetailsComponent implements OnInit{
       this.taskForm.disable()
     });
 
+    alert("Task edited successfully")
   }
 }

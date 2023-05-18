@@ -1,6 +1,5 @@
 package com.example.tasksservices.model;
 
-import com.example.tasksservices.enums.Status;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,8 +22,11 @@ public class Task {
     //@JoinColumn(name = "assigned_to_username", referencedColumnName = "username")
     private UserEntity assignedTo;
 
-    public Task(String subject, LocalDate dueDate) {
+    public Task(String subject, LocalDate dueDate, UserEntity assignedTo) {
         this.subject = subject;
         this.dueDate = dueDate;
+        this.status = Status.NEW;
+        this.assignedTo = assignedTo;
+
     }
 }

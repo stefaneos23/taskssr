@@ -11,16 +11,14 @@
       <li class="nav-item">
         <a routerLink="add-task" class="nav-link">Add Task</a>
       </li>
-      <li class="nav-item">
-        <a routerLink="logout" class="nav-link">Logout</a>
+      <li class="me-auto">
+        <a routerLink="logout" (click)="handleLogout()" class="nav-link">Logout</a>
       </li>
     </div>
   </nav>
-
-  <div class="constainer mt-3">
-    <router-outlet></router-outlet>
-  </div>
 </div>
+
+<router-outlet></router-outlet>
 
 
 

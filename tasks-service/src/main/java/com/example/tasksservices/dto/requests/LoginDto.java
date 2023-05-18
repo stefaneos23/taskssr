@@ -1,4 +1,4 @@
-package com.example.tasksservices.dto;
+package com.example.tasksservices.dto.requests;
 
 import lombok.Data;
 

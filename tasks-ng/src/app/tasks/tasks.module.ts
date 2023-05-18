@@ -6,12 +6,14 @@ import {AllTasksComponent} from "./all-tasks/all-tasks.component";
 import {NgModule} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
+import {SearchTaskComponent } from './search-task/search-task.component';
+import {AuthGuard} from "../guard/auth.guard";
 
 const routes: Routes = [
-  {path: 'my-tasks', component: MyTasksComponent},
+  {path: 'my-tasks', component: MyTasksComponent, canActivate: [AuthGuard]},
   {path: 'tasks/:id', component: TaskDetailsComponent},
-  {path: 'add-task', component: AddTaskComponent},
-  {path: 'all-tasks', component: AllTasksComponent}
+  {path: 'add-task', component: AddTaskComponent, canActivate: [AuthGuard]},
+  {path: 'all-tasks', component: AllTasksComponent, canActivate: [AuthGuard]}
 ]
 
 @NgModule({
@@ -19,7 +21,8 @@ const routes: Routes = [
     MyTasksComponent,
     TaskDetailsComponent,
     AddTaskComponent,
-    AllTasksComponent
+    AllTasksComponent,
+    SearchTaskComponent
   ],
 
   imports: [
@@ -33,7 +36,8 @@ const routes: Routes = [
     MyTasksComponent,
     TaskDetailsComponent,
     AddTaskComponent,
-    AllTasksComponent
+    AllTasksComponent,
+    SearchTaskComponent
   ],
 })
 export class TasksModule {

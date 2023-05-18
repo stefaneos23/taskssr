@@ -1,11 +1,11 @@
 package com.example.tasksservices.service.task;
 
-import com.example.tasksservices.dto.TaskDto;
+import com.example.tasksservices.dto.requests.SearchReq;
+import com.example.tasksservices.dto.requests.TaskDto;
 import com.example.tasksservices.model.Task;
 import com.example.tasksservices.model.UserEntity;
 import com.example.tasksservices.repo.TaskRepository;
 import com.example.tasksservices.repo.UserRepository;
-import com.example.tasksservices.service.task.TaskService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +19,6 @@ public class TaskServiceImpl implements TaskService {
     public TaskServiceImpl(UserRepository userRepository, TaskRepository taskRepository) {
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
-    }
-
-    @Override
-    public List<Task> findByTitleContaining(String title) {
-        return null;
     }
 
     @Override
@@ -46,7 +41,7 @@ public class TaskServiceImpl implements TaskService {
         task.setStatus(taskDTO.getStatus());
         task.setAssignedTo(user);
         taskRepository.save(task);
-        user.getTasks().add(task);
+        user.getAssignedTasks().add(task);
         userRepository.save(user);
     }
 
@@ -56,5 +51,18 @@ public class TaskServiceImpl implements TaskService {
         task.setSubject(taskDTO.getSubject());
         task.setDueDate(taskDTO.getDueDate());
         task.setStatus(taskDTO.getStatus());
+        taskRepository.save(task);
     }
+
+    @Override
+    public List<Task> search(SearchReq searchReq) {
+        return taskRepository.findBySearch(
+                searchReq.getSubject(),
+                searchReq.getDueDate(),
+                searchReq.getStatus(),
+                searchReq.getAssignedTo()
+        );
+    }
+
+
 }

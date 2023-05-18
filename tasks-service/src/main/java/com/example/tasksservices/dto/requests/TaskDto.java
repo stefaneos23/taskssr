@@ -1,6 +1,6 @@
-package com.example.tasksservices.dto;
+package com.example.tasksservices.dto.requests;
 
-import com.example.tasksservices.enums.Status;
+import com.example.tasksservices.model.Status;
 import lombok.Data;
 
 import java.time.LocalDate;

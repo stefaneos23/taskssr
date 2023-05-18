@@ -12,19 +12,6 @@ import java.util.List;
 
 @Configuration
 public class CorsConfig {
-
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOriginPatterns(List.of("http://localhost:4200"));
-//        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
-//        configuration.addAllowedHeader("Content-Type");
-//        configuration.addAllowedHeader("Authorization");
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
-
     @Bean
     public CorsFilter corsFilter(@Value("${cors.allowed-origins}") List<String> allowedOrigins) {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
