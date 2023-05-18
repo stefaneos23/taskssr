@@ -22,7 +22,7 @@ const routes: Routes = [
     TaskDetailsComponent,
     AddTaskComponent,
     AllTasksComponent,
-    SearchTaskComponent
+    SearchTaskComponent,
   ],
 
   imports: [

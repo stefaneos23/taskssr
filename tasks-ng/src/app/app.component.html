@@ -1,22 +1,24 @@
-<div>
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">Task Manager</a>
-    <div class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a routerLink="my-tasks" class="nav-link">My Tasks</a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="all-tasks" class="nav-link">All Tasks</a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="add-task" class="nav-link">Add Task</a>
-      </li>
-      <li class="me-auto">
-        <a routerLink="logout" (click)="handleLogout()" class="nav-link">Logout</a>
-      </li>
+<div class="flex-container " *ngIf="isMainWindowOn">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul  class="navbar-nav ms-4">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="my-tasks">My Tasks</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="all-tasks">All Tasks</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="add-task">Add Tasks</a>
+        </li>
+      </ul>
+    </div>
+    <div class="me-auto">
+      <button class="btn btn-danger me-3" (click)="handleLogout()">Logout</button>
     </div>
   </nav>
 </div>
+
 
 <router-outlet></router-outlet>
 
